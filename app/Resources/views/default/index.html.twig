@@ -1,0 +1,63 @@
+{% extends 'default/unauthenticated.html.twig' %}
+
+{% block body %}
+
+    <div id="main">
+
+        <p>Follow a special channel of Instagram content, curated by our tastemakers.
+            Find what inspires you most, then design and share inspiration boards.<br>
+            Muser is free.</p>
+
+        <a id="connect-instagram" href="https://api.instagram.com/oauth/authorize/?client_id=f73a470e1fcc4b6ab8fbc79cac9d697f&redirect_uri={{ redirect_uri }}&response_type=code&scope=likes+public_content">
+            <i class="icon ion-social-instagram-outline" style="font-size: 2em"></i>
+            Log in with Instagram
+        </a>
+
+        <div class="message">{{ message }}</div>
+
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        #connect-instagram .icon {
+            position: absolute;
+            top: 22px;
+            left: 32px;
+        }
+        #main {
+            width: 320px;
+            margin: 0 auto;
+        }
+        #main p {
+            color: #888;
+            margin-top: 50px;
+            text-align: center;
+            font-size: 11pt;
+            line-height: 1.5em;
+        }
+        #connect-instagram {
+            position: relative;
+            display: block;
+            margin: 50px auto;
+            padding: 30px 30px;
+            border-radius: 4px;
+            text-align: right;
+            width: 264px;
+            background-color: #49F;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            color: white;
+            text-decoration: none;
+        }
+        .message {
+            text-align: center;
+            color: #000;
+            margin: 50px auto;
+        }
+    </style>
+{% endblock %}

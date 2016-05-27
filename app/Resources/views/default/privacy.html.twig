@@ -1,0 +1,29 @@
+{% extends 'default/unauthenticated.html.twig' %}
+
+{% block body %}
+    <div id="main">
+        <h2>Privacy Policy</h2>
+        <p>Muser does not collect or store any user data. It keeps no identifying information, and does not share user data with any third parties.</p>
+        <p>Muser uses cookies stored in the user's browser to persist information.</p>
+        <p>This privacy policy may be subject to future change.</p>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #main {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            color: #333;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        #main p {
+            font-size: 13pt;
+            line-height: 1.4em;
+            text-align: justify;
+        }
+    </style>
+{% endblock %}

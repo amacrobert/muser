@@ -1,0 +1,57 @@
+{% extends 'default/authenticated.html.twig' %}
+
+{% block body %}
+    <div id="main">
+        <h2>Inspiration Board</h2>
+        <div id="message">loading image...</div>
+        <img id="board" src="/inspiration/image">
+        <p><a download="inspiration_board.jpg" href="/inspiration/image" title="Inspiration board">Download Inspiration Board</a></p>
+        <p>Coming soon: share directly to Facebook</p>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #main {
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+            color: #333;
+            margin-bottom: 100px;
+            text-align: center;
+        }
+        #main p {
+            font-size: 13pt;
+            line-height: 1.4em;
+        }
+        #main a {
+            text-decoration: none;
+            font-weight: bold;
+            color: green;
+        }
+        #board {
+            opacity: 0;
+            -webkit-transition: opacity 1200ms ease-in-out;
+            -moz-transition: opacity 1200ms ease-in-out;
+            transition: opacity 1200ms ease-in-out;
+        }
+        #message {
+            margin-bottom: 150px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+    <script>
+    $(function() {
+        $('#board').load(function() {
+            $('#message').remove();
+            $('#board').css('opacity', '1.0');
+        });
+    });
+    </script>
+{% endblock %}

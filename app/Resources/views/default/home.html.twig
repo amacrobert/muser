@@ -1,0 +1,162 @@
+{% extends 'default/authenticated.html.twig' %}
+
+{% block body %}
+
+    <div id="main">
+        <ul class="media">
+        {% for post in media %}
+            <li class="post">
+                <a href="https://instagram.com/{{ post.user.username }}" class="username" target="_blank">{{ post.user.username }}</a>
+                <img class="post" src="{{ post.images.low_resolution.url }}">
+                <div class="actions" data-media-id="{{ post.id }}">
+                    <div class="action like noselect {% if post.user_has_liked %}on{% endif %}">
+                        <p class="cta">Like</p>
+                        <p>on Instagram</p>
+                    </div>
+                    <div class="action inspiration noselect {% if post.user_has_added %}on{% endif %}">
+                        <p class="cta">Add</p>
+                        <p>to Inspiration Board</p>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #main {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .actions {
+            z-index: 1;
+            opacity: 0.1;
+            transition: opacity 100ms ease-in-out;
+        }
+
+        .post:hover .actions {
+            opacity: 1.0;
+        }
+        .actions .action:active{
+            background-color: rgba(85, 136, 85, 1.0);
+        }
+        .actions .action {
+            width: 158px;
+            cursor: pointer;
+            background-color: rgba(240, 240, 240, 1);
+            padding: 5px;
+            box-sizing: border-box;
+            transition: background-color 50ms ease-in-out;
+            user-select: none;
+        }
+
+        .action.like {
+            float: left;
+        }
+        .action.inspiration {
+            float: right;
+        }
+        .action.like.on {
+            background-color: #B55;
+            color: white;
+        }
+        .action.inspiration.on {
+            background-color: #44B;
+            color: white;
+        }
+
+        .actions .action p {
+            text-align: center;
+            margin: 0;
+            font-size: .7em;
+        }
+        .actions .action p.cta {
+            font-size: 1.2em;
+            font-weight: normal;
+        }
+
+        .username {
+            text-decoration: none;
+            font-weight: bold;
+            color: green;
+        }
+
+        ul.media {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul.media li {
+            margin: 0;
+            padding: 10px 0 30px 0;
+        }
+        img.post {
+            width: 100%;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none;   /* Chrome/Safari/Opera */
+            -khtml-user-select: none;    /* Konqueror */
+            -moz-user-select: none;      /* Firefox */
+            -ms-user-select: none;       /* IE/Edge */
+            user-select: none;           /* non-prefixed version, not support */
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+
+        $(function() {
+            // Like button clicked
+            $('.action.like').click(function() {
+                var media_id = $(this).parent().data('media-id');
+                var that = this;
+
+                if ($(this).hasClass('on')) {
+                    $.post('/unlike/' + media_id, function(data) {
+                        console.log(data);
+                        $(that).removeClass('on');
+                    });
+                }
+                else {
+                    $.post('/like/' + media_id, function(data) {
+                        console.log(data);
+                        $(that).addClass('on');
+                    });
+                }
+            });
+
+            // Inspire button clicked
+            $('.action.inspiration').click(function() {
+                var media_id = $(this).parent().data('media-id');
+                var that = this;
+
+                if ($(this).hasClass('on')) {
+                    $.post('/uninspire/' + media_id, function(data) {
+                        console.log(data);
+                        $(that).removeClass('on');
+                    });
+                }
+                else {
+                    $.post('/inspire/' + media_id, function(data) {
+                        console.log(data);
+                        $(that).addClass('on');
+                    });
+                }
+            });
+        });
+
+    </script>
+
+{% endblock %}

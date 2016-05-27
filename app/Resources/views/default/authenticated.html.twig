@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block page_header %}
+    {{ parent() }}
+
+    <div class="user">
+        <img src="{{ user.profile_picture }}" title="{{ user.username }}">
+    </div>
+{% endblock %}
+
+{% block subnav %}
+    <li><a href="/">
+        <i class="icon ion-earth"></i>
+        Find Muses
+    </a></li>
+    <li><a href="/inspiration">
+        <i class="icon ion-edit"></i>
+        Inspiration Board
+    </a></li>
+    <li><a href="/logout">
+        <i class="icon ion-log-out"></i>
+        Log out
+    </a></li>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        header div.user {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            height: 61px;
+            width: 61px;
+            overflow: hidden;
+        }
+        header div.user img {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            height: 51px;
+            width: 51px;
+            border-radius: 3px;
+            box-shadow: 0 0 3px rgba(0,0,0,.2);
+        }
+        #subnav ul li {
+            width: calc(100% / 3);
+        }
+    </style>
+{% endblock %}
