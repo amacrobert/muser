@@ -151,7 +151,7 @@ class InspirationBoard {
              * + - - - +
              */
             if ($n == 1) {
-                // Image 1
+                // Image A
                 imagecopyresampled(
                     $image, $source_images[0],  // destination, source images
                     $x_origin, $y_origin,       // x & y destination
